@@ -45,6 +45,7 @@ function create (){
     plataforma = this.physics.add.staticGroup();
     this.add.image(400,300,'Fondo').setScale(1,1.15);
     //this.input.keyboard.on('keydown_R', this.doRestart, this);
+    keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
     plataforma.create(400,590,'Plataforma').setScale(2.1,1).refreshBody();
     plataforma.create(400,0,'Plataforma').setScale(2.1,0.5).refreshBody();
@@ -148,7 +149,7 @@ function update(time, delta){
         Kaze.setVelocityY(-310);
     }
 
-    if(this.input.keyboard.justDown(R)){
+    if(keyR.isDown){
         this.add.text(100,300,'Press [R] to reiciar with you ',{fontSize:'50px',color:'blue'})
     }
 }; 
