@@ -125,6 +125,9 @@ function update(time, delta){
     emitter.setPosition(0,22);
     emitter.startFollow(Kaze);
     if(gameOver){
+        if(keyR.isDown){
+            this.scene.restart();
+        }
         return;
     }
 
@@ -178,10 +181,6 @@ function choque(Kaze,Esferas){
     gameOver = true;
     this.add.text(100,200,'Game Over!!!!!',{fontSize:'80px',color:'red'})
     this.add.text(100,300,'Press [R] to reiniciar',{fontSize:'50px',color:'blue'})
-    if(keyR.isDown){
-        this.add.text(100,300,'Press [R] to reiniciar ',{fontSize:'60px',color:'blue'});
-        this.scene.restart();
-    }
 }
 
 var Puntos = 0;
