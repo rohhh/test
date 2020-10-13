@@ -27,7 +27,7 @@ const config = {
 var game = new Phaser.Game(config);
 
 function preload (){
-    this.load.image('particula', 'http://labs.phaser.io/assets/particles/yellow.png');
+    this.load.image('particula', 'https://labs.phaser.io/assets/particles/yellow.png');
     this.load.setPath('./assets/');
     this.load.image([
         'Coin',
