@@ -46,6 +46,7 @@ function create (){
     this.add.image(400,300,'Fondo').setScale(1,1.15);
     //this.input.keyboard.on('keydown_R', this.doRestart, this);
     keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+    keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
     plataforma.create(400,590,'Plataforma').setScale(2.1,1).refreshBody();
     plataforma.create(400,0,'Plataforma').setScale(2.1,0.5).refreshBody();
@@ -144,14 +145,11 @@ function update(time, delta){
         Kaze.anims.play('Quieto');
     }
 
-    if (cursors.up.isDown && Kaze.body.touching.down)
+    if ((cursors.up.isDown || keySpace.isDown) && Kaze.body.touching.down)
     {
         Kaze.setVelocityY(-310);
     }
 
-    if(keyR.isDown){
-        this.add.text(100,300,'Press [R] to reiciar with you ',{fontSize:'50px',color:'blue'})
-    }
 }; 
 
 function esconder(Kaze,Coin){
@@ -179,10 +177,11 @@ function choque(Kaze,Esferas){
     Kaze.setTint('Black');
     gameOver = true;
     this.add.text(100,200,'Game Over!!!!!',{fontSize:'80px',color:'red'})
-    this.add.text(100,300,'Press [R] to reiciar with you ',{fontSize:'50px',color:'blue'})
-    /*if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.S){
-
-    }*/
+    this.add.text(100,300,'Press [R] to reiniciar',{fontSize:'50px',color:'blue'})
+    if(keyR.isDown){
+        this.add.text(100,300,'Press [R] to reiniciar ',{fontSize:'60px',color:'blue'});
+        this.scene.restart();
+    }
 }
 
 var Puntos = 0;
