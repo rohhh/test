@@ -44,6 +44,7 @@ function preload (){
 function create (){
     plataforma = this.physics.add.staticGroup();
     this.add.image(400,300,'Fondo').setScale(1,1.15);
+    //this.input.keyboard.on('keydown_R', this.doRestart, this);
 
     plataforma.create(400,590,'Plataforma').setScale(2.1,1).refreshBody();
     plataforma.create(400,0,'Plataforma').setScale(2.1,0.5).refreshBody();
@@ -147,7 +148,9 @@ function update(time, delta){
         Kaze.setVelocityY(-310);
     }
 
-    
+    if(Phaser.Input.Keyboard.JustDown(R)){
+        console.log("R RRR")
+    }
 }; 
 
 function esconder(Kaze,Coin){
@@ -175,6 +178,10 @@ function choque(Kaze,Esferas){
     Kaze.setTint('Black');
     gameOver = true;
     this.add.text(100,200,'Game Over!!!!!',{fontSize:'80px',color:'red'})
+    this.add.text(100,300,'Press [R] to reiciar with you ',{fontSize:'50px',color:'blue'})
+    /*if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.S){
+
+    }*/
 }
 
 var Puntos = 0;
