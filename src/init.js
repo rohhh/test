@@ -148,8 +148,8 @@ function update(time, delta){
         Kaze.setVelocityY(-310);
     }
 
-    if(Phaser.Input.Keyboard.JustDown(R)){
-        console.log("R RRR")
+    if(this.input.keyboard.justDown(R)){
+        this.add.text(100,300,'Press [R] to reiciar with you ',{fontSize:'50px',color:'blue'})
     }
 }; 
 
