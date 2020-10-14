@@ -126,7 +126,10 @@ function update(time, delta){
     emitter.startFollow(Kaze);
     if(gameOver){
         if(keyR.isDown){
+            gameOver = false;
             this.scene.restart();
+            this.physics.resume();
+            Puntos = 0;
         }
         return;
     }
@@ -151,6 +154,11 @@ function update(time, delta){
     if ((cursors.up.isDown || keySpace.isDown) && Kaze.body.touching.down)
     {
         Kaze.setVelocityY(-310);
+    }
+    if(keyR.isDown){
+        this.scene.restart();
+        this.physics.resume();
+        Puntos = 0;
     }
 
 }; 
