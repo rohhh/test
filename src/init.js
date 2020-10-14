@@ -155,11 +155,6 @@ function update(time, delta){
     {
         Kaze.setVelocityY(-310);
     }
-    if(keyR.isDown){
-        this.scene.restart();
-        this.physics.resume();
-        Puntos = 0;
-    }
 
 }; 
 
