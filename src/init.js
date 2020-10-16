@@ -42,6 +42,8 @@ function preload (){
     
 };
 function create (){
+    count = 0;
+    diff = 7;
     plataforma = this.physics.add.staticGroup();
     this.add.image(400,300,'Fondo').setScale(1,1.15);
     //this.input.keyboard.on('keydown_R', this.doRestart, this);
@@ -50,27 +52,28 @@ function create (){
 
     plataforma.create(400,590,'Plataforma').setScale(2.1,1).refreshBody();
     plataforma.create(400,0,'Plataforma').setScale(2.1,0.5).refreshBody();
-    plataforma.create(400,300,'Plataforma').setScale(0.2,0.5).refreshBody();
-    plataforma.create(700,410,'Plataforma').setScale(0.3,0.5).refreshBody();
+    plataforma.create(350,300,'Plataforma').setScale(0.2,0.5).refreshBody();
+    plataforma.create(700,420,'Plataforma').setScale(0.3,0.5).refreshBody();
     plataforma.create(800,150,'Plataforma').setScale(1,0.5).refreshBody();
     plataforma.create(-50,300,'Plataforma').setScale(1,0.5).refreshBody();
     plataforma.create(0,450,'Plataforma').setScale(1,0.5).refreshBody();
     plataforma.create(0,160,'Plataforma').setScale(0.1,0.5).refreshBody();
-    plataforma.create(120,150,'Plataforma').setScale(0.3,0.5).refreshBody();
+    plataforma.create(130,150,'Plataforma').setScale(0.2,0.5).refreshBody();
 
     Kaze = this.physics.add.sprite(230,100,'Kaze');
     Kaze.setCollideWorldBounds(true);
     Kaze.setBounce(0.2);
+    this.physics.add.collider(Kaze, plataforma.getChildren()[2],desplazo,null,this);
     this.physics.add.collider(Kaze, plataforma);
     plataforma.getChildren()[0].setOffset(0,10);
-    plataforma.getChildren()[2].setOffset(0,5);
+    plataforma.getChildren()[2].setOffset(0,-15);
     plataforma.getChildren()[3].setOffset(0,5);
     plataforma.getChildren()[4].setOffset(0,5);
     plataforma.getChildren()[5].setOffset(0,5);
     plataforma.getChildren()[6].setOffset(0,5);
     plataforma.getChildren()[7].setOffset(0,5);
     plataforma.getChildren()[8].setOffset(0,5);
-
+    
     this.anims.create({
         key: 'Izquierda',
         frames: this.anims.generateFrameNumbers('Kaze', {start:0, end:3}),
@@ -100,10 +103,11 @@ function create (){
     coins.children.iterate(function (child) {
         child.setBounce(Phaser.Math.FloatBetween(0.4, 0.8));
     });
-
+    
+    //this.physics.add.collider(coins, plataforma.getChildren()[2],desplazo,null,this);
     this.physics.add.collider(plataforma, coins);
     this.physics.add.overlap(Kaze,coins,esconder,null,this);
-
+    
     PuntosTexto = this.add.text(300,560,'Puntos:0',{fontSize:'40px', color:'red'});
     
     enemigos = this.physics.add.group();
@@ -134,6 +138,21 @@ function update(time, delta){
         return;
     }
 
+    //console.log(this.plataforma.getChildren()[3].get());
+    //plataforma.getChildren()[2];
+    posX = plataforma.getChildren()[2].x;
+    posY = plataforma.getChildren()[2].y;
+    count = count +1;
+    if (count<20){ 
+        plataforma.getChildren()[2].setPosition(posX+diff,posY).refreshBody();
+    
+    } else if (count == 39){
+        count = 0;
+    } else {
+        plataforma.getChildren()[2].setPosition(posX-diff,posY).refreshBody();
+    }
+    //console.log(count)
+    //console.log(Kaze.x)
     cursors = this.input.keyboard.createCursorKeys();
     if (cursors.left.isDown)
     {
@@ -184,6 +203,17 @@ function choque(Kaze,Esferas){
     gameOver = true;
     this.add.text(100,200,'Game Over!!!!!',{fontSize:'80px',color:'red'})
     this.add.text(100,300,'Press [R] to reiniciar',{fontSize:'50px',color:'blue'})
+}
+
+function desplazo(Kaze,plataforma){
+//console.log("yes");
+//Kaze.setPosition(Kaze.x+1,Kaze.y);
+if (count<20){ 
+    Kaze.setPosition(Kaze.x+2,Kaze.y);
+
+} else {
+    Kaze.setPosition(Kaze.x-2,Kaze.y);
+}
 }
 
 var Puntos = 0;
